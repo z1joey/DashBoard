@@ -11,27 +11,29 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var dashBoard: UIView!
+    @IBOutlet weak var someLabel: UILabel!
+    @IBOutlet weak var degreeSlider: UISlider!
 
-    @IBOutlet weak var angleLabel: UILabel!
-    @IBOutlet weak var slider: UISlider!
-
-    var myAngle: CGFloat = 0 {
+    var myDegrees: CGFloat = 0 {
         didSet {
-            drawText(onView: dashBoard, count: 24)
-            //addLabels(onView: dashBoard, count: 24)
+            updateRotation()
         }
     }
+
+    var itemCount: Int = 24 {
+        didSet {
+            updateTextLayers()
+        }
+    }
+
+    var textLayers:[CATextLayer] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        slider.minimumValue = -360
-        slider.maximumValue = 360
-
-        drawDashes(onView: dashBoard, count: 24)
-        drawText(onView: dashBoard, count: 24)
-        //addLabels(onView: dashBoard, count: 24)
-
+        updateTextLayers()
+        drawDashes(onView: dashBoard, count: itemCount)
+        drawText(onView: dashBoard, withTextLayers: textLayers)
     }
 
     @IBAction func startButtonTapped(_ sender: UIButton) {
@@ -41,10 +43,28 @@ class ViewController: UIViewController {
     }
 
     @IBAction func valueChanged(_ sender: UISlider) {
-        myAngle = CGFloat(sender.value)
-        angleLabel.text = "\(sender.value)"
+        myDegrees = CGFloat(sender.value)
+        someLabel.text = "\(sender.value)"
     }
 
+}
+
+// MARK: -
+fileprivate extension ViewController {
+    func updateTextLayers() {
+        textLayers.removeAll()
+        for _ in 1...itemCount {
+            let textLayer = CATextLayer()
+            textLayers.append(textLayer)
+        }
+    }
+
+    func updateRotation() {
+        let radians = CGFloat(myDegrees * CGFloat.pi / 180)
+        textLayers.forEach { (myLayer) in
+            myLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
+        }
+    }
 }
 
 // MARK: - Drawing
@@ -93,8 +113,7 @@ func drawDashes(onView view: UIView, count: Int) {
     replicatorLayer2.addSublayer(shortLine)
 }
 
-func drawText(onView view: UIView, count: Int) {
-
+func drawText(onView view: UIView, withTextLayers textLayers: [CATextLayer]) {
     for layer in view.layer.sublayers ?? [] where layer is CATextLayer {
         layer.removeFromSuperlayer()
     }
@@ -102,70 +121,25 @@ func drawText(onView view: UIView, count: Int) {
     let center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
     let offset: CGFloat = 110.0
 
-    drawCenterPoint(forView: view)
+    for (index, textLayer) in textLayers.enumerated() {
 
-    for index in 1...count {
-        let textLayer = CATextLayer()
-        textLayer.fontSize = 16
-        textLayer.backgroundColor = UIColor.lightGray.cgColor
+        textLayer.fontSize = 26
         textLayer.string = "\(index * 10)"
         textLayer.alignmentMode = .center
 
-        let angle: CGFloat = CGFloat(index) * (CGFloat.pi * 2.0 / CGFloat(count))
-        let degrees: Double = Double(360.0) / Double(count)
-        let radians = degreesToRadians(45.0)
-
-        textLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        textLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
-        //textLayer.transform = CATransform3DRotate(textLayer.transform, radians, 1.0, 0.0, 0.0)
-
+        let angle: CGFloat = CGFloat(index) * (CGFloat.pi * 2.0 / CGFloat(textLayers.count))
         let calculatedOrigin = calculateOrigin(center: center, angle: angle, radius: view.bounds.width/2 - offset)
         let textSize = calculateTextSize(text: "\(index * 10)", font: UIFont.systemFont(ofSize: 26))
         let layerX: CGFloat = calculatedOrigin.x - textSize.width/2
         let layerY: CGFloat = calculatedOrigin.y - textSize.height/2
-
         textLayer.frame = CGRect(x: layerX, y: layerY, width: textSize.width, height: textSize.height)
+
+        let degrees: CGFloat = (CGFloat(360.0) / CGFloat(textLayers.count)) * CGFloat(index) + 90.0
+        let radians = CGFloat(degrees * CGFloat.pi / 180)
+        textLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        textLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
+
         view.layer.addSublayer(textLayer)
-    }
-}
-
-func addLabels(onView view: UIView, count: Int) {
-
-    for view in view.subviews where view is UILabel {
-        view.removeFromSuperview()
-    }
-
-    let center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-    let offset: CGFloat = 110.0
-
-    //let labelSize: CGSize = CGSize(width: 100, height: 100)
-
-    drawCenterPoint(forView: view)
-
-    for index in 1...count {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.backgroundColor = UIColor.lightGray
-        label.text = "\(index * 10)"
-        label.textAlignment = .center
-        label.sizeToFit()
-
-        let angle: CGFloat = CGFloat(index) * (CGFloat.pi * 2.0 / CGFloat(count))
-        label.rotate(degrees: 90)
-
-        //let angle: CGFloat = CGFloat(index) * (CGFloat.pi * 2.0 / CGFloat(count))
-        //label.transform = CGAffineTransform(rotationAngle: myAngle)
-        //label.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        //textLayer.transform = CATransform3DMakeRotation(myAngle, 1.0, 1.0, 1.0)
-        //textLayer.transform = CATransform3DRotate(textLayer.transform, myAngle, 0.0, 0.0, 1.0)
-
-        let calculatedOrigin = calculateOrigin(center: center, angle: angle, radius: view.bounds.width/2 - offset)
-        //let textSize = calculateTextSize(text: "\(index * 10)", font: UIFont.systemFont(ofSize: 26))
-        let layerX: CGFloat = calculatedOrigin.x - label.bounds.width / 2
-        let layerY: CGFloat = calculatedOrigin.y - label.bounds.height / 2
-
-        label.frame = CGRect(x: layerX, y: layerY, width: label.bounds.width, height: label.bounds.height)
-        view.addSubview(label)
     }
 }
 
@@ -183,10 +157,10 @@ func drawCenterPoint(forView view: UIView) {
 }
 
 func calculateOrigin(center: CGPoint, angle: CGFloat, radius: CGFloat) -> CGPoint {
-    let x3 = Float(radius) * cosf(Float(angle))
-    let y3 = Float(radius) * sinf(Float(angle))
+    let x = Float(radius) * cosf(Float(angle))
+    let y = Float(radius) * sinf(Float(angle))
 
-    return CGPoint(x: center.x + CGFloat(x3), y: center.y + CGFloat(y3))
+    return CGPoint(x: center.x + CGFloat(x), y: center.y + CGFloat(y))
 }
 
 func calculateTextSize(text: String, font: UIFont) -> CGSize {
@@ -198,24 +172,3 @@ func calculateTextSize(text: String, font: UIFont) -> CGSize {
 
     return label.frame.size
 }
-
-func degreesToRadians(_ degrees: Double) -> CGFloat {
-  return CGFloat(degrees * .pi / 180.0)
-}
-
-// MARK: -
-extension UIView {
-
-    /**
-     Rotate a view by specified degrees
-
-     - parameter angle: angle in degrees
-     */
-    func rotate(degrees: CGFloat) {
-        let radians = degrees / 180.0 * CGFloat.pi
-        let rotation = self.transform.rotated(by: radians);
-        self.transform = rotation
-    }
-
-}
-

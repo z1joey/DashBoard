@@ -12,7 +12,6 @@
 		D411982B236A889B00F90440 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4119829236A889B00F90440 /* Main.storyboard */; };
 		D411982D236A889C00F90440 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D411982C236A889C00F90440 /* Assets.xcassets */; };
 		D4119830236A889C00F90440 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D411982E236A889C00F90440 /* LaunchScreen.storyboard */; };
-		D411985C236C29AE00F90440 /* TestRotateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D411985B236C29AE00F90440 /* TestRotateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +22,6 @@
 		D411982C236A889C00F90440 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D411982F236A889C00F90440 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D4119831236A889C00F90440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D411985B236C29AE00F90440 /* TestRotateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRotateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +56,6 @@
 			children = (
 				D4119823236A889B00F90440 /* AppDelegate.swift */,
 				D4119827236A889B00F90440 /* ViewController.swift */,
-				D411985B236C29AE00F90440 /* TestRotateViewController.swift */,
 				D4119829236A889B00F90440 /* Main.storyboard */,
 				D411982C236A889C00F90440 /* Assets.xcassets */,
 				D411982E236A889C00F90440 /* LaunchScreen.storyboard */,
@@ -139,7 +136,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4119828236A889B00F90440 /* ViewController.swift in Sources */,
-				D411985C236C29AE00F90440 /* TestRotateViewController.swift in Sources */,
 				D4119824236A889B00F90440 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
