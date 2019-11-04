@@ -151,7 +151,7 @@ func addLabels(onView view: UIView, count: Int) {
         label.sizeToFit()
 
         let angle: CGFloat = CGFloat(index) * (CGFloat.pi * 2.0 / CGFloat(count))
-        label.rotate(angle: 90)
+        label.rotate(degrees: 90)
 
         //let angle: CGFloat = CGFloat(index) * (CGFloat.pi * 2.0 / CGFloat(count))
         //label.transform = CGAffineTransform(rotationAngle: myAngle)
@@ -211,8 +211,8 @@ extension UIView {
 
      - parameter angle: angle in degrees
      */
-    func rotate(angle: CGFloat) {
-        let radians = angle / 180.0 * CGFloat.pi
+    func rotate(degrees: CGFloat) {
+        let radians = degrees / 180.0 * CGFloat.pi
         let rotation = self.transform.rotated(by: radians);
         self.transform = rotation
     }

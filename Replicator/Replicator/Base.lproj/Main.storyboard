@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M5S-t6-HFq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M5S-t6-HFq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -127,38 +127,16 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="roB-ew-rlv">
                                 <rect key="frame" x="24" y="68" width="366" height="200"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lq8-Jy-4Aj">
-                                        <rect key="frame" x="183" y="192" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                                 <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="lq8-Jy-4Aj" firstAttribute="centerX" secondItem="roB-ew-rlv" secondAttribute="centerX" id="5vv-UL-8WP"/>
-                                    <constraint firstAttribute="bottom" secondItem="lq8-Jy-4Aj" secondAttribute="bottom" constant="8" id="Gog-5u-EFI"/>
                                     <constraint firstAttribute="height" constant="200" id="YEn-Sb-ZgG"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xxQ-VQ-YWY">
-                                <rect key="frame" x="24" y="336" width="366" height="200"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rom-ue-XS6">
-                                        <rect key="frame" x="183" y="192" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
+                                <rect key="frame" x="24" y="402" width="366" height="200"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="rom-ue-XS6" secondAttribute="bottom" constant="8" id="Jgp-Cr-dcy"/>
-                                    <constraint firstItem="rom-ue-XS6" firstAttribute="centerX" secondItem="xxQ-VQ-YWY" secondAttribute="centerX" id="nvr-6k-xvJ"/>
-                                </constraints>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1JE-Ru-Ubs">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="-3.1415926000000001" maxValue="3.1415926000000001" translatesAutoresizingMaskIntoConstraints="NO" id="1JE-Ru-Ubs">
                                 <rect key="frame" x="22" y="276" width="370" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="WfI-9V-JEn"/>
@@ -167,24 +145,33 @@
                                     <action selector="layerValueChanged:" destination="M5S-t6-HFq" eventType="valueChanged" id="xVJ-jT-tbe"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6fe-Gi-Rsy">
-                                <rect key="frame" x="22" y="544" width="370" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="-180" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="6fe-Gi-Rsy">
+                                <rect key="frame" x="22" y="610" width="370" height="31"/>
                                 <connections>
                                     <action selector="labelValueChanged:" destination="M5S-t6-HFq" eventType="valueChanged" id="XIC-Gq-kNY"/>
                                 </connections>
                             </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lq8-Jy-4Aj">
+                                <rect key="frame" x="183" y="336" width="48" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6fe-Gi-Rsy" firstAttribute="top" secondItem="xxQ-VQ-YWY" secondAttribute="bottom" constant="8" id="4fz-2U-wIp"/>
+                            <constraint firstItem="xxQ-VQ-YWY" firstAttribute="top" secondItem="lq8-Jy-4Aj" secondAttribute="bottom" constant="30" id="5yc-AR-H5P"/>
                             <constraint firstItem="1JE-Ru-Ubs" firstAttribute="leading" secondItem="Dp8-mu-Vuh" secondAttribute="leading" constant="24" id="6zS-Ui-jd1"/>
                             <constraint firstItem="Dp8-mu-Vuh" firstAttribute="trailing" secondItem="roB-ew-rlv" secondAttribute="trailing" constant="24" id="AsZ-4X-FsE"/>
                             <constraint firstItem="Dp8-mu-Vuh" firstAttribute="trailing" secondItem="6fe-Gi-Rsy" secondAttribute="trailing" constant="24" id="F1h-Gf-r5d"/>
+                            <constraint firstItem="lq8-Jy-4Aj" firstAttribute="top" secondItem="1JE-Ru-Ubs" secondAttribute="bottom" constant="30" id="KEQ-6J-i1C"/>
                             <constraint firstItem="roB-ew-rlv" firstAttribute="leading" secondItem="Dp8-mu-Vuh" secondAttribute="leading" constant="24" id="UVC-dM-Xoq"/>
+                            <constraint firstItem="6fe-Gi-Rsy" firstAttribute="top" secondItem="xxQ-VQ-YWY" secondAttribute="bottom" constant="8" id="Uqp-ap-TRy"/>
                             <constraint firstItem="roB-ew-rlv" firstAttribute="top" secondItem="Dp8-mu-Vuh" secondAttribute="top" constant="24" id="VuE-Lk-pp3"/>
                             <constraint firstItem="xxQ-VQ-YWY" firstAttribute="leading" secondItem="roB-ew-rlv" secondAttribute="leading" id="bFf-4H-Z2i"/>
                             <constraint firstItem="1JE-Ru-Ubs" firstAttribute="top" secondItem="roB-ew-rlv" secondAttribute="bottom" constant="8" id="cXg-01-Yhv"/>
-                            <constraint firstItem="xxQ-VQ-YWY" firstAttribute="top" secondItem="1JE-Ru-Ubs" secondAttribute="bottom" constant="30" id="jpG-59-Xgb"/>
+                            <constraint firstItem="lq8-Jy-4Aj" firstAttribute="centerX" secondItem="Dp8-mu-Vuh" secondAttribute="centerX" id="cha-cY-pim"/>
                             <constraint firstItem="xxQ-VQ-YWY" firstAttribute="trailing" secondItem="roB-ew-rlv" secondAttribute="trailing" id="qlT-SO-gvt"/>
                             <constraint firstItem="6fe-Gi-Rsy" firstAttribute="leading" secondItem="Dp8-mu-Vuh" secondAttribute="leading" constant="24" id="ulT-q9-dmz"/>
                             <constraint firstItem="Dp8-mu-Vuh" firstAttribute="trailing" secondItem="1JE-Ru-Ubs" secondAttribute="trailing" constant="24" id="wdn-Z8-ffQ"/>
@@ -193,10 +180,9 @@
                         <viewLayoutGuide key="safeArea" id="Dp8-mu-Vuh"/>
                     </view>
                     <connections>
-                        <outlet property="labelLabel" destination="rom-ue-XS6" id="Y6B-Px-Cr5"/>
-                        <outlet property="labelView" destination="xxQ-VQ-YWY" id="3sv-2X-h6K"/>
-                        <outlet property="layerLabel" destination="lq8-Jy-4Aj" id="r82-Eu-DJf"/>
-                        <outlet property="layerView" destination="roB-ew-rlv" id="zCV-ej-Dvi"/>
+                        <outlet property="labelView" destination="xxQ-VQ-YWY" id="GHC-pZ-EaO"/>
+                        <outlet property="layerView" destination="roB-ew-rlv" id="MfN-zM-fEf"/>
+                        <outlet property="someLabel" destination="lq8-Jy-4Aj" id="r82-Eu-DJf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yhx-3Q-a3x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
