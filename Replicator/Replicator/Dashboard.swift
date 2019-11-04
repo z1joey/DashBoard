@@ -34,11 +34,11 @@ class Dashboard: UIView {
 }
 
 // MARK: -
-fileprivate extension Dashboard {
+extension Dashboard {
 
     /// Better to set itemCount property rather than fire the function directly
     /// - Parameter count: count of textLayer elements
-    func updateTextLayers(count: Int) {
+    fileprivate func updateTextLayers(count: Int) {
         textLayers.removeAll()
         for _ in 1...count {
             let textLayer = CATextLayer()
@@ -46,9 +46,15 @@ fileprivate extension Dashboard {
         }
     }
 
-    func commonInit() {
+    fileprivate func commonInit() {
         drawDashes(onView: self, count: itemCount)
         drawText(onView: self, withTextLayers: textLayers)
+    }
+
+    func pointTo(grams: Float) {
+        UIView.animate(withDuration: 2) {
+            self.transform = CGAffineTransform(rotationAngle: calculateAngle(byGrams: grams, max: Float(self.itemCount * 10)))
+        }
     }
 
 }
@@ -61,7 +67,7 @@ fileprivate extension Dashboard {
 ///   - count: number of dashes
 fileprivate func drawDashes(onView view: UIView, count: Int) {
     // draw long lines
-    var count: Int = count
+
     let replicatorLayer1 = CAReplicatorLayer()
     replicatorLayer1.frame = view.bounds
 
@@ -87,13 +93,13 @@ fileprivate func drawDashes(onView view: UIView, count: Int) {
     let replicatorLayer2 = CAReplicatorLayer()
     replicatorLayer2.frame = view.bounds
 
-    count = count * 2
-    replicatorLayer2.instanceCount = count
-    replicatorLayer2.instanceDelay = CFTimeInterval(1 / count)
+    let count2 = count * 2
+    replicatorLayer2.instanceCount = count2
+    replicatorLayer2.instanceDelay = CFTimeInterval(1 / count2)
     replicatorLayer2.preservesDepth = false
     replicatorLayer2.instanceColor = UIColor.white.cgColor
 
-    angle = CGFloat.pi * 2.0 / CGFloat(count)
+    angle = CGFloat.pi * 2.0 / CGFloat(count2)
     replicatorLayer2.instanceTransform = CATransform3DMakeRotation(CGFloat(angle), 0.0, 0.0, 1.0)
     view.layer.addSublayer(replicatorLayer2)
 
@@ -123,15 +129,15 @@ fileprivate func drawText(onView view: UIView, withTextLayers textLayers: [CATex
         textLayer.string = "\(index * 10)"
         textLayer.alignmentMode = .center
 
-        let angle: CGFloat = CGFloat(index) * (CGFloat.pi * 2.0 / CGFloat(textLayers.count))
+        let angle: CGFloat = CGFloat(index) * (CGFloat.pi * 2.0 / CGFloat(textLayers.count)) - (0.5 * CGFloat.pi)
         let calculatedOrigin = calculateOrigin(center: center, angle: angle, radius: view.bounds.width/2 - offset)
         let textSize = calculateTextSize(text: "\(index * 10)", font: UIFont.systemFont(ofSize: 26))
         let layerX: CGFloat = calculatedOrigin.x - textSize.width/2
         let layerY: CGFloat = calculatedOrigin.y - textSize.height/2
         textLayer.frame = CGRect(x: layerX, y: layerY, width: textSize.width, height: textSize.height)
 
-        let degrees: CGFloat = (CGFloat(360.0) / CGFloat(textLayers.count)) * CGFloat(index) + 90.0
-        let radians = CGFloat(degrees * CGFloat.pi / 180)
+        let degrees: CGFloat = (CGFloat(360.0) / CGFloat(textLayers.count)) * CGFloat(index)
+        let radians = CGFloat(degrees * CGFloat.pi / 180.0)
         textLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         textLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
 
@@ -167,4 +173,11 @@ fileprivate func calculateTextSize(text: String, font: UIFont) -> CGSize {
     label.sizeToFit()
 
     return label.frame.size
+}
+
+fileprivate func calculateAngle(byGrams grams: Float, max: Float) -> CGFloat {
+    print(max)
+    let angle = (2 * CGFloat.pi) * CGFloat((grams / max))
+    print(angle/CGFloat.pi)
+    return -angle
 }
