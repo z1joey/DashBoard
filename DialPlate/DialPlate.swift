@@ -8,11 +8,10 @@
 
 import UIKit
 
-class Dashboard: UIView {
-
+open class DialPlate: UIView {
     var textLayers:[CATextLayer] = []
 
-    var itemCount: Int = 24 {
+    public var itemCount: Int = 24 {
         didSet {
             updateTextLayers(count: itemCount)
             commonInit()
@@ -25,20 +24,24 @@ class Dashboard: UIView {
         commonInit()
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         itemCount = 24
         commonInit()
     }
 
+    public func pointTo(grams: Float) {
+        UIView.animate(withDuration: 2) {
+            self.transform = CGAffineTransform(rotationAngle: calculateAngle(byGrams: grams, max: Float(self.itemCount * 10)))
+        }
+    }
 }
 
 // MARK: -
-extension Dashboard {
-
+fileprivate extension DialPlate {
     /// Better to set itemCount property rather than fire the function directly
     /// - Parameter count: count of textLayer elements
-    fileprivate func updateTextLayers(count: Int) {
+    func updateTextLayers(count: Int) {
         textLayers.removeAll()
         for _ in 1...count {
             let textLayer = CATextLayer()
@@ -46,17 +49,10 @@ extension Dashboard {
         }
     }
 
-    fileprivate func commonInit() {
+    func commonInit() {
         drawDashes(onView: self, count: itemCount)
         drawText(onView: self, withTextLayers: textLayers)
     }
-
-    func pointTo(grams: Float) {
-        UIView.animate(withDuration: 2) {
-            self.transform = CGAffineTransform(rotationAngle: calculateAngle(byGrams: grams, max: Float(self.itemCount * 10)))
-        }
-    }
-
 }
 
 // MARK: - Drawing
@@ -67,7 +63,6 @@ extension Dashboard {
 ///   - count: number of dashes
 fileprivate func drawDashes(onView view: UIView, count: Int) {
     // draw long lines
-
     let replicatorLayer1 = CAReplicatorLayer()
     replicatorLayer1.frame = view.bounds
 
@@ -109,7 +104,6 @@ fileprivate func drawDashes(onView view: UIView, count: Int) {
     shortLine.backgroundColor = UIColor.white.cgColor
     replicatorLayer2.addSublayer(shortLine)
 }
-
 
 /// Draw numbers on a view
 /// - Parameters:
